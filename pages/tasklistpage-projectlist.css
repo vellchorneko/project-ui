@@ -16,7 +16,7 @@
   height: 850px;
   min-height: 850px;
   max-height: 850px;
-  padding: 58px 36px 64px;
+  padding: 58px 40px 64px;
   border: none;
   border-radius: 46px;
   background-color: transparent;
@@ -165,14 +165,31 @@
 }
 
 .project-list-card--selected {
-  border-color: #c47a24;
-  outline: 1px solid #c47a24;
-  outline-offset: -2px;
-  box-shadow: 0 5px 12px rgba(109, 58, 11, 0.28);
+  border-color: #2f8fe8;
+  outline: 3px solid rgba(47, 143, 232, 0.55);
+  outline-offset: -5px;
+  box-shadow:
+    0 0 0 3px rgba(255, 255, 255, 0.75) inset,
+    0 6px 14px rgba(47, 143, 232, 0.36),
+    0 5px 12px rgba(109, 58, 11, 0.28);
+}
+
+.project-list-card--selected .project-list-category-icon {
+  transform: scale(1.06);
+  box-shadow:
+    0 0 0 4px rgba(47, 143, 232, 0.25),
+    0 3px 8px rgba(79, 41, 7, 0.38);
 }
 
 .project-list-card--completed {
-  opacity: 0.72;
+  filter: grayscale(35%);
+  opacity: 0.58;
+}
+
+.project-list-card--completed .project-list-name {
+  color: #6f5a43;
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
 }
 
 .project-list-card::before {
