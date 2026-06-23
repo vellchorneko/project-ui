@@ -1,7 +1,5 @@
 .project-list-sidebar {
   width: 600px;
-  max-width: 600px;
-  min-width: 0;
   box-sizing: border-box;
   margin-left: -12%;
   margin-top: calc(-3% - 25px);
@@ -13,8 +11,6 @@
 
 .project-list-panel {
   position: relative;
-  width: 100%;
-  min-width: 0;
   box-sizing: border-box;
   height: 850px;
   min-height: 850px;
@@ -130,13 +126,10 @@
 .project-list-items {
   position: relative;
   z-index: 1;
-  min-width: 0;
-  contain: layout paint;
   margin-top: 0 !important;
   flex-grow: 1;
   overflow-x: hidden;
   overflow-y: auto;
-  scrollbar-gutter: stable;
   padding: 0 4px 8px !important;
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -148,7 +141,6 @@
 
 .project-list-card {
   position: relative;
-  width: 100%;
   box-sizing: border-box;
   min-height: 106px;
   border: 2px solid #d9a055;
@@ -266,8 +258,4 @@
 
 .project-list-menu-item:hover {
   background-color: rgba(246, 165, 26, 0.22) !important;
-}
-
-.project-list-card .MuiListItemText-root {
-  min-width: 0;
 }
