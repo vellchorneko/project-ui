@@ -146,17 +146,15 @@
   min-height: 106px;
   border: 2px solid transparent;
   border-radius: 16px;
-  background-color: #ffe3a5;
+  background-color: transparent;
   background-image: url("/images/project/project.png");
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 100% 100%;
+  background-size: 126% 130%;
   margin-bottom: 16px;
   cursor: pointer;
   padding: 12px 56px 12px 16px !important;
-  box-shadow:
-    0 4px 9px rgba(109, 58, 11, 0.24),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.55);
+  box-shadow: 0 4px 9px rgba(109, 58, 11, 0.18);
   overflow: hidden;
 }
 
@@ -164,9 +162,7 @@
   border-color: #c47a24;
   outline: 1px solid #c47a24;
   outline-offset: -2px;
-  box-shadow:
-    0 5px 12px rgba(109, 58, 11, 0.35),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.65);
+  box-shadow: 0 5px 12px rgba(109, 58, 11, 0.28);
 }
 
 .project-list-card--completed {
