@@ -1,0 +1,234 @@
+import { Add as AddIcon, MoreVert as MoreVertIcon } from '@mui/icons-material';
+import {
+  Box,
+  Button,
+  Chip,
+  IconButton,
+  List,
+  ListItem,
+  ListItemText,
+  Menu,
+  MenuItem,
+  Typography,
+} from '@mui/material';
+
+import {
+  PROJECT_CATEGORIES,
+  categoryColorMap,
+  categoryIconMap,
+} from '../constants/projectCategories';
+
+import type { Project } from '../types/types';
+
+import './tasklistpage-projectlist.css';
+
+type ExtendedProject = Project & {
+  completed?: boolean
+};
+
+type ProjectFilter = 'all' | 'incomplete' | 'complete';
+
+type ProjectListProps = {
+  projects: ExtendedProject[]
+  selectedProjectId: number | null
+  projectFilter: ProjectFilter
+  categoryFilter: string
+  menuAnchor: HTMLElement | null
+  menuProject: ExtendedProject | null
+  onCreateProject: () => void
+  onProjectFilterChange: (filter: ProjectFilter) => void
+  onCategoryFilterChange: (category: string) => void
+  onSelectProject: (projectId: number) => void
+  onMenuAnchorChange: (anchor: HTMLElement | null) => void
+  onMenuProjectChange: (project: ExtendedProject | null) => void
+  onEditProject: (project: ExtendedProject) => void
+  onDeleteProject: (projectId: number) => void
+};
+
+const projectFilterLabels: Record<ProjectFilter, string> = {
+  all: 'すべて',
+  incomplete: '未完了',
+  complete: '完了',
+};
+
+export function ProjectList({
+  projects,
+  selectedProjectId,
+  projectFilter,
+  categoryFilter,
+  menuAnchor,
+  menuProject,
+  onCreateProject,
+  onProjectFilterChange,
+  onCategoryFilterChange,
+  onSelectProject,
+  onMenuAnchorChange,
+  onMenuProjectChange,
+  onEditProject,
+  onDeleteProject,
+}: ProjectListProps) {
+  return (
+    <Box className="project-list-sidebar">
+      <Box className="project-list-panel">
+        <Box className="project-list-header">
+          <Typography className="project-list-title">🍃 目標一覧 🍃</Typography>
+
+          <Button
+            variant="contained"
+            onClick={onCreateProject}
+            className="project-list-add-button"
+          >
+            <AddIcon />
+          </Button>
+        </Box>
+
+        <Box className="project-list-filter-row">
+          {(['all', 'incomplete', 'complete'] as const).map(filter => (
+            <Button
+              key={filter}
+              variant="contained"
+              size="small"
+              onClick={() => onProjectFilterChange(filter)}
+              className={`project-list-filter-button ${
+                projectFilter === filter
+                  ? 'project-list-filter-button--active'
+                  : ''
+              }`}
+            >
+              {projectFilterLabels[filter]}
+            </Button>
+          ))}
+        </Box>
+
+        <Box className="project-list-category-select-wrap">
+          <select
+            value={categoryFilter}
+            onChange={e => onCategoryFilterChange(e.target.value)}
+            className="project-list-category-select"
+          >
+            <option value="all">すべて</option>
+            {PROJECT_CATEGORIES.map(cat => (
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
+            ))}
+          </select>
+        </Box>
+
+        <List className="project-list-items">
+          {projects.map((project) => {
+            const projectCategory = project.category || 'その他';
+            const isSelected = project.id === selectedProjectId;
+            const categoryColor
+              = categoryColorMap[projectCategory] || categoryColorMap.その他;
+            const categoryIcon
+              = categoryIconMap[projectCategory] || categoryIconMap.その他;
+
+            return (
+              <ListItem
+                key={project.id}
+                onClick={() => onSelectProject(project.id)}
+                className={`project-list-card ${isSelected ? 'project-list-card--selected' : ''} ${
+                  project.completed ? 'project-list-card--completed' : ''
+                }`}
+              >
+                <Box
+                  className="project-list-category-icon"
+                  sx={{ bgcolor: categoryColor }}
+                >
+                  {categoryIcon}
+                </Box>
+
+                <ListItemText
+                  primary={(
+                    <Box>
+                      <Chip
+                        label={projectCategory}
+                        size="small"
+                        className="project-list-category-chip"
+                        sx={{
+                          backgroundColor: categoryColor,
+                        }}
+                      />
+
+                      <Typography className="project-list-name">
+                        {project.name}
+                      </Typography>
+                    </Box>
+                  )}
+                  secondary={
+                    project.dueDate
+                      ? (
+                        <Typography
+                          component="span"
+                          className="project-list-date"
+                        >
+                          {project.dueDate}
+                        </Typography>
+                      )
+                      : null
+                  }
+                />
+
+                <IconButton
+                  className="project-list-more-button"
+                  onClick={(event) => {
+                    event.stopPropagation();
+
+                    onMenuAnchorChange(event.currentTarget);
+                    onMenuProjectChange(project);
+                  }}
+                >
+                  <MoreVertIcon />
+                </IconButton>
+              </ListItem>
+            );
+          })}
+        </List>
+      </Box>
+
+      <Menu
+        anchorEl={menuAnchor}
+        open={Boolean(menuAnchor)}
+        onClose={() => {
+          onMenuAnchorChange(null);
+          onMenuProjectChange(null);
+        }}
+        slotProps={{
+          paper: {
+            className: 'project-list-menu-paper',
+          },
+          list: {
+            className: 'project-list-menu-list',
+          },
+        }}
+      >
+        <MenuItem
+          className="project-list-menu-item"
+          onClick={() => {
+            if (menuProject) {
+              onEditProject(menuProject);
+            }
+
+            onMenuAnchorChange(null);
+          }}
+        >
+          編集
+        </MenuItem>
+
+        <MenuItem
+          className="project-list-menu-item"
+          onClick={() => {
+            if (menuProject) {
+              onDeleteProject(menuProject.id);
+            }
+
+            onMenuAnchorChange(null);
+          }}
+        >
+          削除
+        </MenuItem>
+      </Menu>
+    </Box>
+  );
+}

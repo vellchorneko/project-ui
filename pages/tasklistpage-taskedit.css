@@ -1,0 +1,948 @@
+:root {
+  --taskedit-orange: #f59a00;
+  --taskedit-orange-dark: #b76500;
+  --taskedit-orange-soft: #ffb238;
+  --taskedit-page-bg: #f4dfb6;
+  --taskedit-panel-bg: #f8dfaa;
+  --taskedit-card-bg: #fff2b8;
+  --taskedit-card-light: #fff8d8;
+  --taskedit-wood: #9b520f;
+  --taskedit-wood-dark: #5a2d08;
+  --taskedit-wood-light: #d68324;
+  --taskedit-border-dark: #1f160c;
+  --taskedit-brown: #8d5200;
+  --taskedit-brown-dark: #5f3500;
+  --taskedit-text: #4f2f00;
+  --taskedit-muted: #8f5f17;
+  --taskedit-danger: #e74c3c;
+  --taskedit-green: #5f8c4a;
+  --taskedit-shadow: 0 16px 34px rgba(82, 42, 6, 0.34);
+  --taskedit-card-shadow: 0 5px 0 rgba(111, 63, 0, 0.55);
+}
+
+.taskedit-dialog .MuiBackdrop-root {
+  background:
+    radial-gradient(circle at 18% 22%, rgba(255, 236, 181, 0.22), transparent 32%),
+    radial-gradient(circle at 78% 76%, rgba(151, 78, 16, 0.18), transparent 36%),
+    rgba(75, 37, 6, 0.34);
+  backdrop-filter: blur(2px);
+}
+
+.taskedit-dialog .MuiDialog-container {
+  align-items: center;
+}
+
+.taskedit-paper,
+.taskedit-dialog .MuiDialog-paper {
+  position: relative;
+  width: min(600px, calc(100vw - 32px));
+  max-width: 600px;
+  max-height: min(92vh, 780px);
+  margin: 16px;
+  overflow: hidden;
+  color: var(--taskedit-text);
+  background:
+    linear-gradient(90deg, rgba(120, 64, 15, 0.08) 0 1px, transparent 1px 15px),
+    linear-gradient(180deg, rgba(255, 244, 207, 0.96), rgba(246, 214, 151, 0.96)),
+    var(--taskedit-panel-bg);
+  border: 4px solid var(--taskedit-border-dark);
+  border-radius: 10px;
+  box-shadow: var(--taskedit-shadow);
+  font-family:
+    "Hiragino Maru Gothic ProN",
+    "Yu Gothic",
+    "Noto Sans JP",
+    system-ui,
+    sans-serif;
+}
+
+.taskedit-paper::before,
+.taskedit-dialog .MuiDialog-paper::before {
+  content: "";
+  position: absolute;
+  inset: 14px;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 20% 18%, rgba(255, 255, 235, 0.5), transparent 28%),
+    radial-gradient(circle at 82% 78%, rgba(225, 154, 55, 0.14), transparent 34%),
+    linear-gradient(180deg, rgba(255, 248, 220, 0.52), rgba(248, 221, 166, 0.42));
+  border: 2px solid rgba(92, 48, 8, 0.28);
+  border-radius: 8px;
+}
+
+.taskedit-paper::after,
+.taskedit-dialog .MuiDialog-paper::after {
+  content: none;
+}
+
+.taskedit-paper .taskedit-decoration-cola,
+.taskedit-dialog .taskedit-decoration-cola {
+  position: absolute;
+  left: -22px;
+  top: -28px;
+  z-index: 1;
+  width: 156px;
+  height: 156px;
+  pointer-events: none;
+  background-image: url("/images/task-edit/task-eidt-cola.png");
+  background-repeat: no-repeat;
+  background-position: left top;
+  background-size: contain;
+  opacity: 1;
+  filter:
+    saturate(1.08)
+    contrast(1.04)
+    drop-shadow(0 3px 5px rgba(82, 42, 6, 0.18));
+}
+
+.taskedit-paper .taskedit-decoration-branch,
+.taskedit-dialog .taskedit-decoration-branch {
+  position: absolute;
+  right: -42px;
+  top: -8px;
+  z-index: 1;
+  width: 310px;
+  height: 166px;
+  pointer-events: none;
+  background-image: url("/images/task-edit/task-edit-branch.png");
+  background-repeat: no-repeat;
+  background-position: right top;
+  background-size: contain;
+  opacity: 1;
+  filter:
+    saturate(1.08)
+    contrast(1.04)
+    drop-shadow(0 3px 5px rgba(82, 42, 6, 0.18));
+}
+
+.taskedit-paper .taskedit-decoration-grass,
+.taskedit-dialog .taskedit-decoration-grass {
+  position: absolute;
+  left: -10px;
+  bottom: -22px;
+  z-index: 1;
+  width: 340px;
+  height: 190px;
+  pointer-events: none;
+  background-image: url("/images/task-edit/task-edit-grass.png");
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  background-size: contain;
+  opacity: 1;
+  filter:
+    saturate(1.08)
+    contrast(1.04)
+    drop-shadow(0 3px 5px rgba(82, 42, 6, 0.18));
+}
+
+.taskedit-paper .taskedit-decoration-left,
+.taskedit-dialog .taskedit-decoration-left,
+.taskedit-paper .taskedit-decoration-bear,
+.taskedit-dialog .taskedit-decoration-bear {
+  display: none;
+}
+
+.taskedit-dialog .MuiDialogTitle-root,
+.taskedit-dialog .MuiDialogContent-root,
+.taskedit-dialog .MuiDialogActions-root,
+.taskedit-form,
+.taskedit-detail-area,
+.taskedit-time-row,
+.taskedit-option-section {
+  position: relative;
+  z-index: 3;
+}
+
+.taskedit-dialog .MuiDialogTitle-root {
+  padding: 34px 44px 18px;
+  text-align: center;
+  color: var(--taskedit-orange);
+  font-family:
+    "HGP創英角ﾎﾟｯﾌﾟ体",
+    "Hiragino Maru Gothic ProN",
+    "Yu Gothic",
+    "Noto Sans JP",
+    system-ui,
+    sans-serif;
+  font-size: 2.15rem;
+  font-weight: 900;
+  line-height: 1.18;
+  letter-spacing: 0.05em;
+  text-shadow:
+    2px 2px 0 #fff5cf,
+    3px 3px 0 rgba(91, 54, 0, 0.22);
+}
+
+.taskedit-dialog .MuiDialogTitle-root::before {
+  content: "";
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin: 0;
+}
+
+.taskedit-dialog .MuiDialogContent-root {
+  padding: 8px 42px 112px;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+  max-height: calc(92vh - 190px);
+}
+
+.taskedit-dialog .MuiDialogContent-root::-webkit-scrollbar {
+  width: 10px;
+}
+
+.taskedit-dialog .MuiDialogContent-root::-webkit-scrollbar-track {
+  background: rgba(255, 246, 214, 0.86);
+  border-radius: 999px;
+}
+
+.taskedit-dialog .MuiDialogContent-root::-webkit-scrollbar-thumb {
+  background: rgba(155, 82, 15, 0.58);
+  border: 2px solid rgba(255, 246, 214, 0.96);
+  border-radius: 999px;
+}
+
+.taskedit-dialog .MuiDialogContent-root::-webkit-scrollbar-thumb:hover {
+  background: rgba(123, 63, 8, 0.78);
+}
+
+.taskedit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.taskedit-detail-area {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding-top: 4px;
+  padding-bottom: 20px;
+  animation: taskedit-detail-open 180ms ease-out;
+}
+
+@keyframes taskedit-detail-open {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.taskedit-time-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.taskedit-option-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 13px 14px 14px;
+  background:
+    linear-gradient(90deg, rgba(145, 82, 15, 0.04) 0 1px, transparent 1px 14px),
+    linear-gradient(180deg, rgba(255, 248, 216, 0.95), rgba(246, 210, 143, 0.95));
+  border: 3px solid var(--taskedit-border-dark);
+  border-radius: 7px;
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 255, 255, 0.42),
+    0 3px 0 rgba(95, 53, 0, 0.32);
+}
+
+.taskedit-dialog .MuiTextField-root {
+  position: relative;
+  z-index: 3;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.taskedit-dialog .MuiInputBase-root,
+.taskedit-dialog .MuiOutlinedInput-root {
+  color: var(--taskedit-text);
+  background:
+    linear-gradient(90deg, rgba(145, 82, 15, 0.04) 0 1px, transparent 1px 14px),
+    linear-gradient(180deg, #fff8d7, #fff0b8);
+  border-radius: 7px;
+  font-weight: 800;
+}
+
+.taskedit-dialog .MuiOutlinedInput-notchedOutline {
+  border-color: #24170a;
+  border-width: 2px;
+}
+
+.taskedit-dialog .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: #9b520f;
+}
+
+.taskedit-dialog .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: var(--taskedit-orange);
+  border-width: 3px;
+  box-shadow: 0 0 0 4px rgba(155, 82, 15, 0.18);
+}
+
+.taskedit-dialog .MuiInputBase-input {
+  padding: 15px 17px;
+  color: var(--taskedit-text);
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.taskedit-dialog textarea.MuiInputBase-input {
+  min-height: 84px;
+  line-height: 1.65;
+}
+
+.taskedit-dialog .MuiInputBase-input::placeholder {
+  color: rgba(143, 95, 23, 0.76);
+  opacity: 1;
+}
+
+.taskedit-dialog .MuiInputLabel-root {
+  color: var(--taskedit-orange);
+  font-weight: 900;
+}
+
+.taskedit-dialog .MuiInputLabel-root.Mui-focused {
+  color: var(--taskedit-orange-dark);
+}
+
+.taskedit-dialog input[type="date"],
+.taskedit-dialog input[type="time"] {
+  color: var(--taskedit-text);
+}
+
+.taskedit-dialog input[type="date"]::-webkit-calendar-picker-indicator,
+.taskedit-dialog input[type="time"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  filter:
+    sepia(0.8)
+    saturate(2)
+    hue-rotate(350deg)
+    brightness(0.85);
+}
+
+.taskedit-dialog .MuiTextField-root:has(input[type="date"]) {
+  margin-top: 12px;
+}
+
+.taskedit-dialog .MuiTextField-root:has(input[type="date"]) .MuiInputLabel-root,
+.taskedit-dialog .MuiTextField-root:has(input[type="date"]) .MuiInputLabel-root.Mui-focused,
+.taskedit-dialog .MuiTextField-root:has(input[type="date"]) .MuiInputLabel-root.MuiInputLabel-shrink {
+  background: linear-gradient(180deg, #fff8d7, #fff0b8);
+  padding: 0 6px;
+  line-height: 1.2;
+  transform: translate(12px, -8px) scale(0.75);
+  z-index: 4;
+}
+
+.taskedit-dialog .MuiInputLabel-root.MuiInputLabel-shrink {
+  background: linear-gradient(180deg, #fff8d7, #fff0b8);
+  padding: 0 6px;
+  line-height: 1.2;
+  z-index: 4;
+}
+
+.taskedit-dialog .MuiFormHelperText-root.Mui-error {
+  margin-left: 4px;
+  color: var(--taskedit-danger);
+  font-weight: 900;
+}
+
+.taskedit-dialog .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline {
+  border-color: var(--taskedit-danger);
+}
+
+.taskedit-dialog .MuiFormControlLabel-root {
+  position: relative;
+  z-index: 3;
+  margin-left: 0;
+  margin-right: 0;
+  color: var(--taskedit-text);
+}
+
+.taskedit-dialog .MuiFormControlLabel-label {
+  color: var(--taskedit-text);
+  font-size: 1.06rem;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+}
+
+.taskedit-dialog .MuiCheckbox-root {
+  padding: 6px 10px 6px 0;
+  color: var(--taskedit-orange);
+}
+
+.taskedit-dialog .MuiCheckbox-root.Mui-checked {
+  color: var(--taskedit-orange-dark);
+}
+
+.taskedit-dialog .MuiCheckbox-root .MuiSvgIcon-root {
+  width: 28px;
+  height: 28px;
+  filter: drop-shadow(1px 1px 0 rgba(255, 255, 255, 0.86));
+}
+
+.taskedit-dialog .MuiFormControl-root {
+  width: 100%;
+}
+
+.taskedit-dialog .MuiFormLabel-root {
+  margin-bottom: 8px;
+  color: var(--taskedit-orange);
+  font-size: 1.08rem;
+  font-weight: 900;
+  letter-spacing: 0.03em;
+  text-shadow: 1px 1px 0 rgba(255, 246, 214, 0.92);
+}
+
+.taskedit-dialog .MuiFormLabel-root.Mui-focused {
+  color: var(--taskedit-orange-dark);
+}
+
+.taskedit-dialog .MuiRadioGroup-root {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+}
+
+.taskedit-dialog .MuiRadio-root {
+  padding: 6px 7px 6px 0;
+  color: #7b6951;
+}
+
+.taskedit-dialog .MuiRadio-root.Mui-checked {
+  color: var(--taskedit-orange);
+}
+
+.taskedit-dialog .MuiRadio-root .MuiSvgIcon-root {
+  width: 24px;
+  height: 24px;
+}
+
+.taskedit-dialog .MuiRadio-root.Mui-checked + .MuiFormControlLabel-label {
+  color: var(--taskedit-orange-dark);
+  font-weight: 900;
+}
+
+.taskedit-dialog .MuiRadioGroup-root .MuiFormControlLabel-root {
+  min-height: 36px;
+  padding: 0 10px 0 4px;
+  border-radius: 999px;
+  transition:
+    background-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+}
+
+.taskedit-dialog .MuiRadioGroup-root .MuiFormControlLabel-root:has(.MuiRadio-root.Mui-checked) {
+  background: rgba(155, 82, 15, 0.16);
+  box-shadow: inset 0 0 0 2px rgba(155, 82, 15, 0.34);
+}
+
+.taskedit-dialog .MuiRadioGroup-root .MuiFormControlLabel-root:hover {
+  background: rgba(255, 255, 255, 0.62);
+}
+
+.taskedit-dialog .MuiDialogActions-root {
+  z-index: 4;
+  gap: 12px;
+  min-height: 124px;
+  padding: 14px 40px 34px;
+  justify-content: center;
+  background:
+    linear-gradient(180deg, rgba(246, 214, 151, 0), rgba(231, 176, 91, 0.34)),
+    linear-gradient(90deg, rgba(110, 58, 11, 0.06) 0 1px, transparent 1px 16px);
+}
+
+.taskedit-dialog .MuiDialogActions-root .MuiButton-root {
+  min-width: 112px;
+  min-height: 44px;
+  padding: 8px 22px;
+  border-radius: 6px;
+  font-size: 1.02rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  transition:
+    transform 140ms ease,
+    box-shadow 140ms ease,
+    filter 140ms ease;
+}
+
+.taskedit-dialog .MuiDialogActions-root .MuiButton-root:hover {
+  transform: translateY(-1px);
+}
+
+.taskedit-dialog .MuiDialogActions-root .MuiButton-root:active {
+  transform: translateY(1px);
+}
+
+.taskedit-dialog .MuiDialogActions-root .MuiButton-text,
+.taskedit-dialog .MuiDialogActions-root .MuiButton-outlined {
+  color: var(--taskedit-wood-dark);
+  background:
+    linear-gradient(180deg, #fff3c8, #f4c774);
+  border: 2px solid var(--taskedit-orange);
+  box-shadow:
+    0 3px 0 rgba(123, 63, 8, 0.42),
+    inset 0 1px 0 rgba(255, 255, 255, 0.78);
+}
+
+.taskedit-dialog .MuiDialogActions-root .MuiButton-text:hover,
+.taskedit-dialog .MuiDialogActions-root .MuiButton-outlined:hover {
+  color: #ffffff;
+  background:
+    linear-gradient(180deg, #d9851f, #9b520f);
+  border-color: var(--taskedit-wood-dark);
+}
+
+.taskedit-dialog .MuiDialogActions-root .MuiButton-contained,
+.taskedit-dialog .MuiDialogActions-root .MuiButton-containedPrimary {
+  color: #ffffff;
+  background:
+    linear-gradient(180deg, #d98a25, #9b520f);
+  border: 2px solid var(--taskedit-wood-dark);
+  box-shadow:
+    0 4px 0 rgba(77, 38, 6, 0.58),
+    inset 0 1px 0 rgba(255, 226, 166, 0.42);
+}
+
+.taskedit-dialog .MuiDialogActions-root .MuiButton-contained:hover,
+.taskedit-dialog .MuiDialogActions-root .MuiButton-containedPrimary:hover {
+  background:
+    linear-gradient(180deg, #e89b34, #884607);
+  box-shadow:
+    0 5px 0 rgba(77, 38, 6, 0.58),
+    inset 0 1px 0 rgba(255, 226, 166, 0.5);
+}
+
+.taskedit-save-image-button,
+.taskedit-create-image-button {
+  position: absolute;
+  right: 26px;
+  bottom: 12px;
+  z-index: 5;
+  width: 188px;
+  height: 132px;
+  padding: 0;
+  border: 0;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  transition:
+    transform 140ms ease,
+    filter 140ms ease;
+}
+
+.taskedit-save-image-button {
+  background-image: url("/images/task-edit/task-edit-bottom.png");
+}
+
+.taskedit-create-image-button {
+  background-image: url("/images/task-edit/task-edit-bottom2.png");
+}
+
+.taskedit-save-image-button:hover,
+.taskedit-create-image-button:hover {
+  transform: translateY(-2px) scale(1.025);
+  filter: brightness(1.04) saturate(1.04);
+}
+
+.taskedit-save-image-button:active,
+.taskedit-create-image-button:active {
+  transform: translateY(1px) scale(0.99);
+}
+
+.taskedit-save-image-button:disabled,
+.taskedit-save-image-button[aria-disabled="true"],
+.taskedit-create-image-button:disabled,
+.taskedit-create-image-button[aria-disabled="true"] {
+  cursor: not-allowed;
+  filter: grayscale(0.35) opacity(0.65);
+  transform: none;
+}
+
+.taskedit-save-image-button:focus-visible,
+.taskedit-create-image-button:focus-visible {
+  border-radius: 28px;
+  box-shadow:
+    0 0 0 3px rgba(255, 255, 255, 0.96),
+    0 0 0 6px rgba(155, 82, 15, 0.5);
+}
+
+.taskedit-save-image-button::before,
+.taskedit-save-image-button::after,
+.taskedit-create-image-button::before,
+.taskedit-create-image-button::after {
+  content: none;
+}
+
+.taskedit-add-fab.MuiFab-root,
+.MuiFab-root.taskedit-add-fab {
+  color: #1f160c;
+  background:
+    linear-gradient(180deg, #ffba2d, var(--taskedit-orange));
+  border: 3px solid var(--taskedit-border-dark);
+  box-shadow:
+    0 5px 0 rgba(95, 53, 0, 0.55),
+    0 8px 18px rgba(92, 55, 8, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
+.taskedit-add-fab.MuiFab-root:hover,
+.MuiFab-root.taskedit-add-fab:hover {
+  background:
+    linear-gradient(180deg, #ffc547, #ef9100);
+  transform: translateY(-1px);
+  box-shadow:
+    0 6px 0 rgba(95, 53, 0, 0.55),
+    0 10px 22px rgba(92, 55, 8, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.taskedit-add-fab.MuiFab-root:active,
+.MuiFab-root.taskedit-add-fab:active {
+  transform: translateY(1px);
+}
+
+.taskedit-edit-icon-button.MuiIconButton-root,
+.MuiIconButton-root.taskedit-edit-icon-button {
+  color: var(--taskedit-brown-dark);
+  background: #fff6d7;
+  border: 2px solid var(--taskedit-orange);
+  box-shadow: 0 2px 6px rgba(92, 55, 8, 0.18);
+  transition:
+    background-color 140ms ease,
+    color 140ms ease,
+    transform 140ms ease,
+    box-shadow 140ms ease;
+}
+
+.taskedit-edit-icon-button.MuiIconButton-root:hover,
+.MuiIconButton-root.taskedit-edit-icon-button:hover {
+  color: #ffffff;
+  background: var(--taskedit-orange);
+  transform: translateY(-1px);
+  box-shadow: 0 5px 12px rgba(198, 121, 0, 0.28);
+}
+
+@media (max-width: 640px) {
+  .taskedit-paper,
+  .taskedit-dialog .MuiDialog-paper {
+    width: calc(100vw - 20px);
+    max-height: calc(100vh - 20px);
+    margin: 10px;
+    border-radius: 9px;
+  }
+
+  .taskedit-paper::before,
+  .taskedit-dialog .MuiDialog-paper::before {
+    inset: 9px;
+    border-radius: 6px;
+  }
+
+  .taskedit-dialog .MuiDialogTitle-root {
+    padding: 30px 24px 14px;
+    font-size: 1.75rem;
+  }
+
+  .taskedit-dialog .MuiDialogContent-root {
+    padding: 8px 24px 102px;
+    max-height: calc(100vh - 176px);
+  }
+
+  .taskedit-time-row {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .taskedit-dialog .MuiRadioGroup-root {
+    gap: 2px 8px;
+  }
+
+  .taskedit-dialog .MuiDialogActions-root {
+    min-height: 104px;
+    padding: 12px 24px 28px;
+  }
+
+  .taskedit-dialog .MuiDialogActions-root .MuiButton-root {
+    min-width: 96px;
+    min-height: 42px;
+    padding: 8px 18px;
+  }
+
+  .taskedit-paper .taskedit-decoration-cola,
+  .taskedit-dialog .taskedit-decoration-cola {
+    width: 112px;
+    height: 112px;
+    left: -18px;
+    top: -22px;
+    opacity: 1;
+  }
+
+  .taskedit-paper .taskedit-decoration-branch,
+  .taskedit-dialog .taskedit-decoration-branch {
+    width: 226px;
+    height: 126px;
+    right: -46px;
+    top: -4px;
+    opacity: 1;
+  }
+
+  .taskedit-paper .taskedit-decoration-grass,
+  .taskedit-dialog .taskedit-decoration-grass {
+    width: 246px;
+    height: 142px;
+    left: -14px;
+    bottom: -20px;
+    opacity: 1;
+  }
+
+  .taskedit-save-image-button,
+  .taskedit-create-image-button {
+    width: 148px;
+    height: 104px;
+    right: 12px;
+    bottom: 8px;
+  }
+}
+
+@media (max-width: 420px) {
+  .taskedit-dialog .MuiDialogTitle-root {
+    font-size: 1.55rem;
+  }
+
+  .taskedit-dialog .MuiInputBase-input {
+    padding: 14px 15px;
+  }
+
+  .taskedit-dialog .MuiFormControlLabel-label {
+    font-size: 0.98rem;
+  }
+
+  .taskedit-dialog .MuiDialogActions-root {
+    justify-content: flex-start;
+    min-height: 92px;
+  }
+
+  .taskedit-dialog .MuiDialogActions-root .MuiButton-root {
+    min-width: 0;
+  }
+
+  .taskedit-paper .taskedit-decoration-cola,
+  .taskedit-dialog .taskedit-decoration-cola {
+    width: 92px;
+    height: 92px;
+    left: -18px;
+    top: -18px;
+    opacity: 1;
+  }
+
+  .taskedit-paper .taskedit-decoration-branch,
+  .taskedit-dialog .taskedit-decoration-branch {
+    width: 188px;
+    height: 108px;
+    right: -48px;
+    top: -4px;
+    opacity: 1;
+  }
+
+  .taskedit-paper .taskedit-decoration-grass,
+  .taskedit-dialog .taskedit-decoration-grass {
+    width: 204px;
+    height: 118px;
+    left: -18px;
+    bottom: -18px;
+    opacity: 1;
+  }
+
+  .taskedit-save-image-button,
+  .taskedit-create-image-button {
+    width: 128px;
+    height: 90px;
+    right: 8px;
+    bottom: 6px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .taskedit-detail-area,
+  .taskedit-dialog .MuiButton-root,
+  .taskedit-add-fab.MuiFab-root,
+  .taskedit-edit-icon-button.MuiIconButton-root,
+  .taskedit-save-image-button,
+  .taskedit-create-image-button {
+    animation: none;
+    transition: none;
+  }
+}
+/* ==============================
+   目標作成・目標編集 Dialog
+   ============================== */
+
+.projectedit-dialog .MuiDialogTitle-root {
+  color: var(--taskedit-orange);
+}
+
+.projectedit-dialog .taskedit-option-section {
+  margin-top: 18px;
+}
+
+.projectedit-dialog .MuiDialogContent-root {
+  padding-bottom: 112px;
+}
+
+/* 目標カテゴリもタスク編集と同じ丸ボタン風にする */
+.projectedit-dialog .MuiRadioGroup-root {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+}
+
+
+/* ==============================
+   タスク詳細 Dialog
+   ============================== */
+
+.taskdetail-dialog .MuiDialogTitle-root {
+  color: var(--taskedit-orange);
+}
+
+/* 詳細画面は閲覧用なので少し落ち着いた見た目にする */
+.taskdetail-dialog .MuiInputBase-root,
+.taskdetail-dialog .MuiOutlinedInput-root {
+  background:
+    linear-gradient(90deg, rgba(145, 82, 15, 0.035) 0 1px, transparent 1px 14px),
+    linear-gradient(180deg, #fff9df, #fff3c7);
+}
+
+/* readOnly の入力欄も通常入力欄と違和感が出ないようにする */
+.taskdetail-dialog .MuiInputBase-input.Mui-disabled,
+.taskdetail-dialog .Mui-disabled .MuiInputBase-input {
+  -webkit-text-fill-color: var(--taskedit-text);
+  color: var(--taskedit-text);
+}
+
+/* 詳細画面の disabled radio を見やすくする */
+.taskdetail-dialog .MuiRadio-root.Mui-disabled {
+  color: rgba(155, 82, 15, 0.45);
+}
+
+.taskdetail-dialog .MuiFormControlLabel-label.Mui-disabled {
+  color: rgba(79, 47, 0, 0.72);
+  font-weight: 900;
+}
+
+/* 詳細画面の閉じるボタンを中央寄せ */
+.taskdetail-dialog .MuiDialogActions-root {
+  justify-content: center;
+}
+/* ==============================
+   目標一覧：三点メニュー
+   ============================== */
+
+.project-menu .MuiBackdrop-root {
+  background: transparent;
+}
+
+
+.project-menu-paper.MuiPaper-root {
+  min-width: 72px;
+  overflow: hidden;
+  color: #6a3a05;
+  background:
+    linear-gradient(90deg, rgba(190, 115, 32, 0.08) 0 1px, transparent 1px 9px),
+    linear-gradient(180deg, rgba(255, 244, 209, 0.9), rgba(246, 202, 128, 0.82)),
+    linear-gradient(135deg, #ffe2a6 0%, #f7c777 48%, #eaa64a 100%);
+  border: 2px solid #b66b12;
+  border-radius: 4px;
+  box-shadow:
+    0 4px 0 rgba(151, 83, 10, 0.48),
+    0 8px 14px rgba(111, 60, 8, 0.24),
+    inset 0 1px 0 rgba(255, 252, 224, 0.9),
+    inset 0 -1px 0 rgba(178, 102, 18, 0.32);
+}
+
+
+.project-menu-paper.MuiPaper-root::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 20% 25%, rgba(255, 255, 230, 0.38), transparent 20%),
+    radial-gradient(circle at 72% 60%, rgba(183, 102, 24, 0.14), transparent 24%),
+    repeating-linear-gradient(
+      0deg,
+      rgba(163, 91, 20, 0.08) 0,
+      rgba(163, 91, 20, 0.08) 1px,
+      transparent 1px,
+      transparent 7px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 230, 0.16) 0,
+      rgba(255, 255, 230, 0.16) 1px,
+      transparent 1px,
+      transparent 18px
+    );
+  opacity: 0.9;
+}
+
+.project-menu-item.MuiMenuItem-root {
+  min-height: 34px;
+  padding: 7px 16px;
+  color: #6a3a05;
+  font-family:
+    "HGP創英角ﾎﾟｯﾌﾟ体",
+    "Hiragino Maru Gothic ProN",
+    "Yu Gothic",
+    "Noto Sans JP",
+    system-ui,
+    sans-serif;
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-shadow: 1px 1px 0 rgba(255, 245, 200, 0.65);
+}
+
+
+
+
+.project-menu-item.MuiMenuItem-root:hover {
+  color: #ffffff;
+  background:
+    linear-gradient(180deg, #d88420, #ad5e0c);
+  text-shadow:
+    1px 1px 0 rgba(62, 27, 0, 0.8),
+    0 0 3px rgba(70, 30, 0, 0.55);
+}
+
+
+
+.project-menu-item.MuiMenuItem-root:hover {
+  color: #fff3c8;
+  background:
+    linear-gradient(180deg, rgba(65, 25, 2, 0.58), rgba(34, 12, 0, 0.62));
+  text-shadow: 1px 1px 0 rgba(24, 9, 0, 0.72);
+}
+
+
+.project-menu-item.MuiMenuItem-root + .project-menu-item.MuiMenuItem-root {
+  border-top: 1px solid rgba(168, 93, 20, 0.32);
+}
+
