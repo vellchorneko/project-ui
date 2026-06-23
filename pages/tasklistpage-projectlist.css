@@ -16,7 +16,7 @@
   height: 850px;
   min-height: 850px;
   max-height: 850px;
-  padding: 58px 58px 64px;
+  padding: 58px 36px 64px;
   border: none;
   border-radius: 46px;
   background-color: transparent;
@@ -143,7 +143,9 @@
 .project-list-card {
   position: relative;
   box-sizing: border-box;
+  height: 106px;
   min-height: 106px;
+  max-height: 106px;
   border: 2px solid transparent;
   border-radius: 16px;
   background-color: transparent;
@@ -156,6 +158,10 @@
   padding: 12px 56px 12px 16px !important;
   box-shadow: 0 4px 9px rgba(109, 58, 11, 0.18);
   overflow: hidden;
+}
+
+.project-list-card .MuiListItemText-root {
+  min-width: 0;
 }
 
 .project-list-card--selected {
@@ -216,7 +222,11 @@
   font-size: 18px !important;
   color: #3f260f;
   line-height: 1.25 !important;
-  word-break: break-word;
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .project-list-date {
@@ -225,6 +235,8 @@
   color: #b26013;
   font-weight: 600 !important;
   font-size: 15px !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
 
