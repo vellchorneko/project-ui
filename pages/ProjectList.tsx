@@ -2,7 +2,6 @@ import { Add as AddIcon, MoreVert as MoreVertIcon } from '@mui/icons-material';
 import {
   Box,
   Button,
-  Chip,
   IconButton,
   List,
   ListItem,
@@ -133,42 +132,51 @@ export function ProjectList({
                 }`}
               >
                 <Box
-                  className="project-list-category-icon"
-                  sx={{ bgcolor: categoryColor }}
-                >
-                  {categoryIcon}
-                </Box>
+                  component="img"
+                  src="./images/task/Task.png"
+                  className="project-list-task-image"
+                  aria-hidden="true"
+                />
 
-                <ListItemText
-                  primary={(
-                    <Box>
-                      <Chip
-                        label={projectCategory}
-                        size="small"
-                        className="project-list-category-chip"
-                        sx={{
-                          backgroundColor: categoryColor,
-                        }}
-                      />
+                <Box className="project-list-card-content">
+                  <Box
+                    className="project-list-category-icon"
+                    sx={{ bgcolor: categoryColor }}
+                  >
+                    {categoryIcon}
+                  </Box>
 
-                      <Typography className="project-list-name">
-                        {project.name}
-                      </Typography>
-                    </Box>
-                  )}
-                  secondary={
-                    project.dueDate
-                      ? (
+                  <ListItemText
+                    className="project-list-text"
+                    primary={(
+                      <Box className="project-list-primary">
                         <Typography
                           component="span"
-                          className="project-list-date"
+                          className="project-list-category-label"
+                          sx={{ color: categoryColor }}
                         >
-                          {project.dueDate}
+                          {projectCategory}
                         </Typography>
-                      )
-                      : null
-                  }
-                />
+
+                        <Typography className="project-list-name">
+                          {project.name}
+                        </Typography>
+                      </Box>
+                    )}
+                    secondary={(
+                      <Box component="span" className="project-list-secondary">
+                        <Typography component="span" className="project-list-description">
+                          {project.description || '説明なし'}
+                        </Typography>
+
+                        <Typography component="span" className="project-list-date">
+                          期限:
+                          {project.dueDate || 'なし'}
+                        </Typography>
+                      </Box>
+                    )}
+                  />
+                </Box>
 
                 <IconButton
                   className="project-list-more-button"
