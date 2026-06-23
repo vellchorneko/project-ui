@@ -1,6 +1,5 @@
 .project-list-sidebar {
   width: 600px;
-  flex: 0 0 600px;
   box-sizing: border-box;
   margin-left: -12%;
   margin-top: calc(-3% - 25px);
@@ -16,7 +15,7 @@
   height: 850px;
   min-height: 850px;
   max-height: 850px;
-  padding: 0 58px 64px;
+  padding: 58px 58px 64px;
   border: none;
   border-radius: 46px;
   background-color: transparent;
