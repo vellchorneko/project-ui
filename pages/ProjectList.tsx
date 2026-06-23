@@ -149,17 +149,9 @@ export function ProjectList({
             const projectCategoryLabel = getProjectCategoryLabel(projectCategory);
             const projectTooltipTitle = (
               <Box className="project-list-tooltip-content">
-                <Typography className="project-list-tooltip-title">
-                  {project.name}
-                </Typography>
                 <Typography className="project-list-tooltip-line">
                   {project.description || '詳細なし'}
                 </Typography>
-                {project.dueDate && (
-                  <Typography className="project-list-tooltip-line">
-                    期限：{project.dueDate}
-                  </Typography>
-                )}
               </Box>
             );
 
@@ -170,6 +162,14 @@ export function ProjectList({
                 arrow
                 placement="right"
                 enterDelay={350}
+                slotProps={{
+                  tooltip: {
+                    className: 'project-list-tooltip',
+                  },
+                  arrow: {
+                    className: 'project-list-tooltip-arrow',
+                  },
+                }}
               >
                 <ListItem
                   onClick={() => onSelectProject(project.id)}
@@ -208,7 +208,7 @@ export function ProjectList({
                             component="span"
                             className="project-list-completed-badge"
                           >
-                            🐾 已完成
+                            🐾 完了
                           </Typography>
                         )
                         : project.dueDate

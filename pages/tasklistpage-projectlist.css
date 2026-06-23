@@ -261,9 +261,9 @@
   gap: 4px;
   max-width: 100%;
   margin-top: 6px;
-  padding: 3px 10px;
+  padding: 4px 12px;
   border: 2px solid #cf8a3a;
-  border-radius: 999px;
+  border-radius: 8px;
   color: #7b430b;
   background: linear-gradient(180deg, #ffe0a4 0%, #ffc86d 100%);
   box-shadow:
@@ -279,16 +279,25 @@
   max-width: 240px;
 }
 
-.project-list-tooltip-title {
-  margin-bottom: 4px !important;
-  font-size: 15px !important;
-  font-weight: 900 !important;
-}
-
 .project-list-tooltip-line {
   font-size: 13px !important;
   line-height: 1.45 !important;
   white-space: pre-wrap;
+}
+
+.project-list-tooltip {
+  max-width: 260px !important;
+  border: 2px solid #c77a30;
+  border-radius: 12px !important;
+  color: #4d2d0d !important;
+  background: linear-gradient(180deg, #fff1c9 0%, #ffd991 100%) !important;
+  box-shadow:
+    0 8px 18px rgba(86, 43, 10, 0.24),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.65) !important;
+}
+
+.project-list-tooltip-arrow {
+  color: #ffd991 !important;
 }
 
 .project-list-more-button {
