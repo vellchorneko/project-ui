@@ -144,9 +144,13 @@
   position: relative;
   box-sizing: border-box;
   min-height: 106px;
-  border: 2px solid #d9a055;
+  border: 2px solid transparent;
   border-radius: 16px;
-  background: linear-gradient(135deg, #fff1c9 0%, #ffd991 100%);
+  background-color: #ffe3a5;
+  background-image: url("/images/project/project.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
   margin-bottom: 16px;
   cursor: pointer;
   padding: 12px 56px 12px 16px !important;
@@ -171,6 +175,7 @@
 
 .project-list-card::before {
   content: "";
+  display: none;
   position: absolute;
   left: 0;
   bottom: 0;
