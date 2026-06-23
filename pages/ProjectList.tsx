@@ -51,6 +51,19 @@ const projectFilterLabels: Record<ProjectFilter, string> = {
   complete: '完了',
 };
 
+const projectCategoryLabelMap: Record<string, string> = {
+  その他: '雑事',
+};
+
+const projectCategoryColorOverrides: Record<string, string> = {
+  学習: '#c94b3f',
+  日常: '#e87d13',
+  生活: '#e87d13',
+};
+
+const getProjectCategoryLabel = (category: string) =>
+  projectCategoryLabelMap[category] || category;
+
 export function ProjectList({
   projects,
   selectedProjectId,
@@ -116,7 +129,7 @@ export function ProjectList({
             <option value="all">すべて</option>
             {PROJECT_CATEGORIES.map(cat => (
               <option key={cat} value={cat}>
-                {cat}
+                {getProjectCategoryLabel(cat)}
               </option>
             ))}
           </select>
@@ -127,9 +140,12 @@ export function ProjectList({
             const projectCategory = project.category || 'その他';
             const isSelected = project.id === selectedProjectId;
             const categoryColor
-              = categoryColorMap[projectCategory] || categoryColorMap.その他;
+              = projectCategoryColorOverrides[projectCategory]
+                || categoryColorMap[projectCategory]
+                || categoryColorMap.その他;
             const categoryIcon
               = categoryIconMap[projectCategory] || categoryIconMap.その他;
+            const projectCategoryLabel = getProjectCategoryLabel(projectCategory);
 
             return (
               <ListItem
@@ -150,7 +166,7 @@ export function ProjectList({
                   primary={(
                     <Box>
                       <Chip
-                        label={projectCategory}
+                        label={projectCategoryLabel}
                         size="small"
                         className="project-list-category-chip"
                         sx={{
