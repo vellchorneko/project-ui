@@ -11,7 +11,7 @@
 .project-list-panel {
   position: relative;
   height: 850px;
-  padding: 96px 58px 64px;
+  padding: 0 58px 64px;
   border: none;
   border-radius: 46px;
   background-color: transparent;
