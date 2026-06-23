@@ -9,6 +9,7 @@ import {
   ListItemText,
   Menu,
   MenuItem,
+  Tooltip,
   Typography,
 } from '@mui/material';
 
@@ -146,65 +147,96 @@ export function ProjectList({
             const categoryIcon
               = categoryIconMap[projectCategory] || categoryIconMap.その他;
             const projectCategoryLabel = getProjectCategoryLabel(projectCategory);
+            const projectTooltipTitle = (
+              <Box className="project-list-tooltip-content">
+                <Typography className="project-list-tooltip-line">
+                  {project.description || '詳細なし'}
+                </Typography>
+              </Box>
+            );
 
             return (
-              <ListItem
+              <Tooltip
                 key={project.id}
-                onClick={() => onSelectProject(project.id)}
-                className={`project-list-card ${isSelected ? 'project-list-card--selected' : ''} ${
-                  project.completed ? 'project-list-card--completed' : ''
-                }`}
+                title={projectTooltipTitle}
+                arrow
+                placement="right"
+                enterDelay={350}
+                slotProps={{
+                  tooltip: {
+                    className: 'project-list-tooltip',
+                  },
+                  arrow: {
+                    className: 'project-list-tooltip-arrow',
+                  },
+                }}
               >
-                <Box
-                  className="project-list-category-icon"
-                  sx={{ bgcolor: categoryColor }}
+                <ListItem
+                  onClick={() => onSelectProject(project.id)}
+                  className={`project-list-card ${isSelected ? 'project-list-card--selected' : ''} ${
+                    project.completed ? 'project-list-card--completed' : ''
+                  }`}
                 >
-                  {categoryIcon}
-                </Box>
+                  <Box
+                    className="project-list-category-icon"
+                    sx={{ bgcolor: categoryColor }}
+                  >
+                    {categoryIcon}
+                  </Box>
 
-                <ListItemText
-                  primary={(
-                    <Box>
-                      <Chip
-                        label={projectCategoryLabel}
-                        size="small"
-                        className="project-list-category-chip"
-                        sx={{
-                          backgroundColor: categoryColor,
-                        }}
-                      />
+                  <ListItemText
+                    primary={(
+                      <Box>
+                        <Chip
+                          label={projectCategoryLabel}
+                          size="small"
+                          className="project-list-category-chip"
+                          sx={{
+                            backgroundColor: categoryColor,
+                          }}
+                        />
 
-                      <Typography className="project-list-name">
-                        {project.name}
-                      </Typography>
-                    </Box>
-                  )}
-                  secondary={
-                    project.dueDate
-                      ? (
-                        <Typography
-                          component="span"
-                          className="project-list-date"
-                        >
-                          {project.dueDate}
+                        <Typography className="project-list-name">
+                          {project.name}
                         </Typography>
-                      )
-                      : null
-                  }
-                />
+                      </Box>
+                    )}
+                    secondary={
+                      project.completed
+                        ? (
+                          <Typography
+                            component="span"
+                            className="project-list-completed-badge"
+                          >
+                            🐾 完了
+                          </Typography>
+                        )
+                        : project.dueDate
+                          ? (
+                            <Typography
+                              component="span"
+                              className="project-list-date"
+                            >
+                              {project.dueDate}
+                            </Typography>
+                          )
+                          : null
+                    }
+                  />
 
-                <IconButton
-                  className="project-list-more-button"
-                  onClick={(event) => {
-                    event.stopPropagation();
+                  <IconButton
+                    className="project-list-more-button"
+                    onClick={(event) => {
+                      event.stopPropagation();
 
-                    onMenuAnchorChange(event.currentTarget);
-                    onMenuProjectChange(project);
-                  }}
-                >
-                  <MoreVertIcon />
-                </IconButton>
-              </ListItem>
+                      onMenuAnchorChange(event.currentTarget);
+                      onMenuProjectChange(project);
+                    }}
+                  >
+                    <MoreVertIcon />
+                  </IconButton>
+                </ListItem>
+              </Tooltip>
             );
           })}
         </List>

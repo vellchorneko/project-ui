@@ -16,7 +16,7 @@
   height: 850px;
   min-height: 850px;
   max-height: 850px;
-  padding: 58px 58px 64px;
+  padding: 58px 40px 64px;
   border: none;
   border-radius: 46px;
   background-color: transparent;
@@ -143,7 +143,9 @@
 .project-list-card {
   position: relative;
   box-sizing: border-box;
+  height: 106px;
   min-height: 106px;
+  max-height: 106px;
   border: 2px solid transparent;
   border-radius: 16px;
   background-color: transparent;
@@ -158,15 +160,34 @@
   overflow: hidden;
 }
 
+.project-list-card .MuiListItemText-root {
+  min-width: 0;
+}
+
 .project-list-card--selected {
-  border-color: #c47a24;
-  outline: 1px solid #c47a24;
-  outline-offset: -2px;
-  box-shadow: 0 5px 12px rgba(109, 58, 11, 0.28);
+  border-color: #b86f24;
+  outline: 2px solid rgba(255, 184, 75, 0.72);
+  outline-offset: -4px;
+  box-shadow:
+    0 0 0 2px rgba(255, 247, 221, 0.82) inset,
+    0 6px 14px rgba(184, 111, 36, 0.34),
+    0 5px 12px rgba(109, 58, 11, 0.28);
+}
+
+.project-list-card--selected .project-list-category-icon {
+  transform: scale(1.04);
+  box-shadow:
+    0 0 0 4px rgba(255, 184, 75, 0.3),
+    0 3px 8px rgba(79, 41, 7, 0.38);
 }
 
 .project-list-card--completed {
-  opacity: 0.72;
+  filter: saturate(82%);
+  opacity: 0.86;
+}
+
+.project-list-card--completed .project-list-name {
+  color: #6f4b2a;
 }
 
 .project-list-card::before {
@@ -216,7 +237,11 @@
   font-size: 18px !important;
   color: #3f260f;
   line-height: 1.25 !important;
-  word-break: break-word;
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .project-list-date {
@@ -225,7 +250,54 @@
   color: #b26013;
   font-weight: 600 !important;
   font-size: 15px !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.project-list-completed-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  max-width: 100%;
+  margin-top: 6px;
+  padding: 4px 12px;
+  border: 2px solid #cf8a3a;
+  border-radius: 8px;
+  color: #7b430b;
+  background: linear-gradient(180deg, #ffe0a4 0%, #ffc86d 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.78),
+    0 2px 4px rgba(109, 58, 11, 0.18);
+  font-size: 13px !important;
+  font-weight: 900 !important;
+  line-height: 1.1 !important;
+  white-space: nowrap;
+}
+
+.project-list-tooltip-content {
+  max-width: 240px;
+}
+
+.project-list-tooltip-line {
+  font-size: 13px !important;
+  line-height: 1.45 !important;
+  white-space: pre-wrap;
+}
+
+.project-list-tooltip {
+  max-width: 260px !important;
+  border: 2px solid #c77a30;
+  border-radius: 12px !important;
+  color: #4d2d0d !important;
+  background: linear-gradient(180deg, #fff1c9 0%, #ffd991 100%) !important;
+  box-shadow:
+    0 8px 18px rgba(86, 43, 10, 0.24),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.65) !important;
+}
+
+.project-list-tooltip-arrow {
+  color: #ffd991 !important;
 }
 
 .project-list-more-button {
