@@ -1119,11 +1119,23 @@ export default function TaskListPage() {
               'overflowY': 'auto',
               'pr': 1,
 
-              // スクロール操作は残しつつ、タブレットのようにスクロールバー表示を隠す
-              'scrollbarWidth': 'none',
-              'msOverflowStyle': 'none',
+              'scrollbarGutter': 'stable',
+              'scrollbarWidth': 'thin',
+              'scrollbarColor': 'rgba(126, 84, 43, 0.62) rgba(246, 221, 171, 0.34)',
               '&::-webkit-scrollbar': {
-                display: 'none',
+                width: 10,
+              },
+              '&::-webkit-scrollbar-track': {
+                backgroundColor: 'rgba(246, 221, 171, 0.34)',
+                borderRadius: 999,
+              },
+              '&::-webkit-scrollbar-thumb': {
+                backgroundColor: 'rgba(126, 84, 43, 0.62)',
+                border: '2px solid rgba(246, 221, 171, 0.72)',
+                borderRadius: 999,
+              },
+              '&::-webkit-scrollbar-thumb:hover': {
+                backgroundColor: 'rgba(91, 57, 24, 0.78)',
               },
             }}
           >
