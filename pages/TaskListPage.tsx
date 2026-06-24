@@ -1119,11 +1119,23 @@ export default function TaskListPage() {
               'overflowY': 'auto',
               'pr': 1,
 
-              // スクロール操作は残しつつ、タブレットのようにスクロールバー表示を隠す
-              'scrollbarWidth': 'none',
-              'msOverflowStyle': 'none',
+              'scrollbarGutter': 'stable',
+              'scrollbarWidth': 'thin',
+              'scrollbarColor': 'rgba(126, 84, 43, 0.62) rgba(246, 221, 171, 0.34)',
               '&::-webkit-scrollbar': {
-                display: 'none',
+                width: 10,
+              },
+              '&::-webkit-scrollbar-track': {
+                backgroundColor: 'rgba(246, 221, 171, 0.34)',
+                borderRadius: 999,
+              },
+              '&::-webkit-scrollbar-thumb': {
+                backgroundColor: 'rgba(126, 84, 43, 0.62)',
+                border: '2px solid rgba(246, 221, 171, 0.72)',
+                borderRadius: 999,
+              },
+              '&::-webkit-scrollbar-thumb:hover': {
+                backgroundColor: 'rgba(91, 57, 24, 0.78)',
               },
             }}
           >
@@ -1273,13 +1285,22 @@ export default function TaskListPage() {
           onClose={resetProjectDialog}
           fullWidth
           maxWidth="sm"
+          className="projectedit-dialog"
           slotProps={{
             paper: {
               sx: {
                 'position': 'relative',
+                'width': '600px',
+                'height': '620px',
+                'maxWidth': 'calc(100vw - 32px)',
+                'maxHeight': 'calc(100vh - 32px)',
                 'borderRadius': '14px',
                 'border': '4px solid #b86f24',
-                'background': 'linear-gradient(180deg, #ffe7ad 0%, #ffe0a0 45%, #ffd790 100%)',
+                'backgroundColor': 'transparent',
+                'backgroundImage': 'url("/images/project/projiect-edit2.png")',
+                'backgroundPosition': 'center',
+                'backgroundRepeat': 'no-repeat',
+                'backgroundSize': '100% 100%',
                 'boxShadow': '0 12px 28px rgba(77, 40, 9, 0.35), inset 0 0 0 2px rgba(255,255,255,0.48)',
                 'overflow': 'visible',
                 'color': '#4d2d0d',

@@ -62,6 +62,11 @@ const projectCategoryColorOverrides: Record<string, string> = {
   生活: '#e87d13',
 };
 
+const projectCategoryIconOverrides: Record<string, string> = {
+  学習: '📚',
+  趣味: '🎨',
+};
+
 const getProjectCategoryLabel = (category: string) =>
   projectCategoryLabelMap[category] || category;
 
@@ -152,7 +157,9 @@ export function ProjectList({
               || categoryColorMap[projectCategory]
               || categoryColorMap.その他;
             const categoryIcon
-              = categoryIconMap[projectCategory] || categoryIconMap.その他;
+              = projectCategoryIconOverrides[projectCategory]
+                || categoryIconMap[projectCategory]
+                || categoryIconMap.その他;
             const projectCategoryLabel = getProjectCategoryLabel(projectCategory);
             const projectTooltipTitle = (
               <Box className="project-list-tooltip-content">
