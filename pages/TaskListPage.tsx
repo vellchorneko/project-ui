@@ -2,9 +2,7 @@
  * タスク一覧を表示・管理するページコンポーネント
  * タスクの表示、作成、完了状態の切り替え、削除、編集などの機能を提供
  */
-import {
-  Add as AddIcon,
-} from '@mui/icons-material';
+
 import {
   Box,
   Button,
@@ -313,6 +311,24 @@ export default function TaskListPage() {
 
     const index = hash % stampImages.length;
     return stampImages[index];
+  };
+
+  // スタンプのランダム配置
+  const stampStyle = (id: number) => {
+    const str = id.toString();
+
+    let hash = 0;
+
+    for (let i = 0; i < str.length; i++) {
+      hash = hash * 31 + str.charCodeAt(i);
+    }
+
+    return {
+      rotate: (hash % 30) - 15,
+      offsetX: (hash % 6) - 3,
+      offsetY: ((hash >> 3) % 6) - 3,
+      scale: 0.9 + ((hash % 20) / 100),
+    };
   };
 
   // チェックポイント配置用
@@ -801,24 +817,6 @@ export default function TaskListPage() {
     );
   };
 
-  // スタンプのランダム配置
-  const stampStyle = (id: number) => {
-    const str = id.toString();
-
-    let hash = 0;
-
-    for (let i = 0; i < str.length; i++) {
-      hash = hash * 31 + str.charCodeAt(i);
-    }
-
-    return {
-      rotate: (hash % 30) - 15,
-      offsetX: (hash % 7) - 3,
-      offsetY: ((hash >> 3) % 7) - 3,
-      scale: 0.9 + ((hash % 20) / 100),
-    };
-  };
-
   // タスクの表示設定
   const renderTaskItem = (task: ExtendedTask, showEdit: boolean) => (
     <ListItem
@@ -956,7 +954,7 @@ export default function TaskListPage() {
           </Box>
         </Box>
 
-        {showEdit && (
+        {!task.completed && (
           <ListItemSecondaryAction
             sx={{
               right: 30,
@@ -1263,7 +1261,11 @@ export default function TaskListPage() {
           }}
           onClick={() => setOpenDialog(true)}
         >
-          <AddIcon />
+          <img
+            src="/images/task/createbear.png"
+            alt="add"
+            style={{ width: 120, height: 120, marginTop: -15 }}
+          />
         </Fab>
 
         <Dialog
@@ -2052,7 +2054,7 @@ export default function TaskListPage() {
                           <FormControlLabel
                             key={category}
                             value={category}
-                            control={<Radio />}
+                            control={<Radio disabled />}
                             label={category}
                           />
                         ))}
@@ -2077,7 +2079,7 @@ export default function TaskListPage() {
                           <FormControlLabel
                             key={priority}
                             value={priority}
-                            control={<Radio />}
+                            control={<Radio disabled />}
                             label={priority}
                           />
                         ))}
@@ -2091,7 +2093,7 @@ export default function TaskListPage() {
 
           <DialogActions className="taskedit-actions">
             <Button onClick={handleCloseDetailDialog}>
-              キャンセル
+              閉じる
             </Button>
           </DialogActions>
         </Dialog>

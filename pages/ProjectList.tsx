@@ -1,4 +1,4 @@
-import { Add as AddIcon, MoreVert as MoreVertIcon } from '@mui/icons-material';
+import { MoreVert as MoreVertIcon } from '@mui/icons-material';
 import {
   Box,
   Button,
@@ -9,6 +9,7 @@ import {
   ListItemText,
   Menu,
   MenuItem,
+  Tooltip,
   Typography,
 } from '@mui/material';
 
@@ -51,6 +52,19 @@ const projectFilterLabels: Record<ProjectFilter, string> = {
   complete: '完了',
 };
 
+const projectCategoryLabelMap: Record<string, string> = {
+  その他: '雑事',
+};
+
+const projectCategoryColorOverrides: Record<string, string> = {
+  学習: '#c94b3f',
+  日常: '#e87d13',
+  生活: '#e87d13',
+};
+
+const getProjectCategoryLabel = (category: string) =>
+  projectCategoryLabelMap[category] || category;
+
 export function ProjectList({
   projects,
   selectedProjectId,
@@ -70,6 +84,13 @@ export function ProjectList({
   return (
     <Box className="project-list-sidebar">
       <Box className="project-list-panel">
+        <Box
+          component="img"
+          src="/images/task/board.png"
+          className="project-list-board-image"
+          aria-hidden="true"
+        />
+
         <Box className="project-list-header">
           <Typography className="project-list-title">🍃 目標一覧 🍃</Typography>
 
@@ -78,7 +99,16 @@ export function ProjectList({
             onClick={onCreateProject}
             className="project-list-add-button"
           >
-            <AddIcon />
+            {/*  */}
+            <img
+              src="/images/task/createbear_p.png"
+              alt="add"
+              style={{
+                width: '320%',
+                height: '320%',
+                objectFit: 'contain',
+              }}
+            />
           </Button>
         </Box>
 
@@ -89,10 +119,9 @@ export function ProjectList({
               variant="contained"
               size="small"
               onClick={() => onProjectFilterChange(filter)}
-              className={`project-list-filter-button ${
-                projectFilter === filter
-                  ? 'project-list-filter-button--active'
-                  : ''
+              className={`project-list-filter-button ${projectFilter === filter
+                ? 'project-list-filter-button--active'
+                : ''
               }`}
             >
               {projectFilterLabels[filter]}
@@ -109,7 +138,7 @@ export function ProjectList({
             <option value="all">すべて</option>
             {PROJECT_CATEGORIES.map(cat => (
               <option key={cat} value={cat}>
-                {cat}
+                {getProjectCategoryLabel(cat)}
               </option>
             ))}
           </select>
@@ -119,69 +148,101 @@ export function ProjectList({
           {projects.map((project) => {
             const projectCategory = project.category || 'その他';
             const isSelected = project.id === selectedProjectId;
-            const categoryColor
-              = categoryColorMap[projectCategory] || categoryColorMap.その他;
+            const categoryColor = projectCategoryColorOverrides[projectCategory]
+              || categoryColorMap[projectCategory]
+              || categoryColorMap.その他;
             const categoryIcon
               = categoryIconMap[projectCategory] || categoryIconMap.その他;
+            const projectCategoryLabel = getProjectCategoryLabel(projectCategory);
+            const projectTooltipTitle = (
+              <Box className="project-list-tooltip-content">
+                <Typography className="project-list-tooltip-line">
+                  {project.description || '詳細なし'}
+                </Typography>
+              </Box>
+            );
 
             return (
-              <ListItem
+              <Tooltip
                 key={project.id}
-                onClick={() => onSelectProject(project.id)}
-                className={`project-list-card ${isSelected ? 'project-list-card--selected' : ''} ${
-                  project.completed ? 'project-list-card--completed' : ''
-                }`}
+                title={projectTooltipTitle}
+                arrow
+                placement="right"
+                enterDelay={350}
+                slotProps={{
+                  tooltip: {
+                    className: 'project-list-tooltip',
+                  },
+                  arrow: {
+                    className: 'project-list-tooltip-arrow',
+                  },
+                }}
               >
-                <Box
-                  className="project-list-category-icon"
-                  sx={{ bgcolor: categoryColor }}
+                <ListItem
+                  onClick={() => onSelectProject(project.id)}
+                  className={`project-list-card ${isSelected ? 'project-list-card--selected' : ''} ${project.completed ? 'project-list-card--completed' : ''
+                  }`}
                 >
-                  {categoryIcon}
-                </Box>
+                  <Box
+                    className="project-list-category-icon"
+                    sx={{ bgcolor: categoryColor }}
+                  >
+                    {categoryIcon}
+                  </Box>
 
-                <ListItemText
-                  primary={(
-                    <Box>
-                      <Chip
-                        label={projectCategory}
-                        size="small"
-                        className="project-list-category-chip"
-                        sx={{
-                          backgroundColor: categoryColor,
-                        }}
-                      />
+                  <ListItemText
+                    primary={(
+                      <Box>
+                        <Chip
+                          label={projectCategoryLabel}
+                          size="small"
+                          className="project-list-category-chip"
+                          sx={{
+                            backgroundColor: categoryColor,
+                          }}
+                        />
 
-                      <Typography className="project-list-name">
-                        {project.name}
-                      </Typography>
-                    </Box>
-                  )}
-                  secondary={
-                    project.dueDate
-                      ? (
-                        <Typography
-                          component="span"
-                          className="project-list-date"
-                        >
-                          {project.dueDate}
+                        <Typography className="project-list-name">
+                          {project.name}
                         </Typography>
-                      )
-                      : null
-                  }
-                />
+                      </Box>
+                    )}
+                    secondary={
+                      project.completed
+                        ? (
+                          <Typography
+                            component="span"
+                            className="project-list-completed-badge"
+                          >
+                            🐾 完了
+                          </Typography>
+                        )
+                        : project.dueDate
+                          ? (
+                            <Typography
+                              component="span"
+                              className="project-list-date"
+                            >
+                              {project.dueDate}
+                            </Typography>
+                          )
+                          : null
+                    }
+                  />
 
-                <IconButton
-                  className="project-list-more-button"
-                  onClick={(event) => {
-                    event.stopPropagation();
+                  <IconButton
+                    className="project-list-more-button"
+                    onClick={(event) => {
+                      event.stopPropagation();
 
-                    onMenuAnchorChange(event.currentTarget);
-                    onMenuProjectChange(project);
-                  }}
-                >
-                  <MoreVertIcon />
-                </IconButton>
-              </ListItem>
+                      onMenuAnchorChange(event.currentTarget);
+                      onMenuProjectChange(project);
+                    }}
+                  >
+                    <MoreVertIcon />
+                  </IconButton>
+                </ListItem>
+              </Tooltip>
             );
           })}
         </List>
