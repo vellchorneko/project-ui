@@ -1288,6 +1288,7 @@ export default function TaskListPage() {
           className="projectedit-dialog"
           slotProps={{
             paper: {
+              className: 'projectedit-paper',
               sx: {
                 'position': 'relative',
                 'width': '600px',
@@ -1296,11 +1297,6 @@ export default function TaskListPage() {
                 'maxHeight': 'calc(100vh - 32px)',
                 'borderRadius': '14px',
                 'border': '4px solid #b86f24',
-                'backgroundColor': 'transparent',
-                'backgroundImage': 'url("/images/project/projiect-edit2.png")',
-                'backgroundPosition': 'center',
-                'backgroundRepeat': 'no-repeat',
-                'backgroundSize': '100% 100%',
                 'boxShadow': '0 12px 28px rgba(77, 40, 9, 0.35), inset 0 0 0 2px rgba(255,255,255,0.48)',
                 'overflow': 'visible',
                 'color': '#4d2d0d',
