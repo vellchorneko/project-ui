@@ -63,7 +63,7 @@ const projectCategoryColorOverrides: Record<string, string> = {
 };
 
 const projectCategoryIconOverrides: Record<string, string> = {
-  学習: '📚',
+  学習: '📖',
   趣味: '🎨',
 };
 
